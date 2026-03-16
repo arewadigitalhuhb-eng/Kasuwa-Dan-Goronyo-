@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade - Dan Goronyo Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <span class="mobile-toggle" onclick="toggleSidebar()">☰</span>
+        <div class="logo">Subscription</div>
+    </div>
+</header>
+
+<div class="sidebar" id="sidebar">
+    <div class="logo">
+        <h2>KasuApp Pro</h2>
+    </div>
+    <ul class="menu">
+        <li onclick="goPage('index')">🏠 Home</li>
+        <li onclick="goPage('upgrade')" class="active">⭐ Upgrade</li>
+        <li onclick="goPage('settings')">⚙️ Settings</li>
+    </ul>
+    <button onclick="logoutUser()" class="logout-btn">Logout</button>
+</div>
+
+<div class="main-content" id="main-content">
+    <div class="upgrade-container">
+        <div class="current-plan">
+            <h2>Your Current Plan</h2>
+            <div class="plan-card active">
+                <h3>Pro Edition</h3>
+                <p class="price">₦5,000/month</p>
+                <ul class="features">
+                    <li>✓ Unlimited Products</li>
+                    <li>✓ Advanced Reports</li>
+                    <li>✓ Multi-user Support</li>
+                    <li>✓ Cloud Backup</li>
+                    <li>✓ Priority Support</li>
+                </ul>
+                <p class="renewal">Renews on: <span id="renewalDate">Dec 31, 2024</span></p>
+            </div>
+        </div>
+
+        <h2>Available Plans</h2>
+        <div class="plans-grid">
+            <div class="plan-card">
+                <h3>Basic</h3>
+                <p class="price">Free</p>
+                <ul class="features">
+                    <li>• 100 Products</li>
+                    <li>• Basic Reports</li>
+                    <li>• Single User</li>
+                    <li class="disabled">• Cloud Backup</li>
+                    <li class="disabled">• Priority Support</li>
+                </ul>
+                <button onclick="downgradePlan('basic')" class="btn-secondary">Downgrade</button>
+            </div>
+
+            <div class="plan-card recommended">
+                <div class="badge">Current</div>
+                <h3>Pro</h3>
+                <p class="price">₦5,000/month</p>
+                <ul class="features">
+                    <li>✓ Unlimited Products</li>
+                    <li>✓ Advanced Reports</li>
+                    <li>✓ Multi-user Support</li>
+                    <li>✓ Cloud Backup</li>
+                    <li>✓ Priority Support</li>
+                </ul>
+                <button class="btn-primary" disabled>Active</button>
+            </div>
+
+            <div class="plan-card">
+                <h3>Enterprise</h3>
+                <p class="price">₦15,000/month</p>
+                <ul class="features">
+                    <li>✓ Everything in Pro</li>
+                    <li>✓ Multiple Branches</li>
+                    <li>✓ API Access</li>
+                    <li>✓ Custom Integration</li>
+                    <li>✓ 24/7 Phone Support</li>
+                </ul>
+                <button onclick="upgradePlan('enterprise')" class="btn-primary">Upgrade</button>
+            </div>
+        </div>
+
+        <div class="payment-history">
+            <h2>Payment History</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Plan</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Invoice</th>
+                    </tr>
+                </thead>
+                <tbody id="paymentHistoryBody">
+                    <tr>
+                        <td>Nov 01, 2024</td>
+                        <td>Pro Monthly</td>
+                        <td>₦5,000</td>
+                        <td><span class="status paid">Paid</span></td>
+                        <td><button onclick="downloadInvoice(1)" class="btn-small">Download</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    <div class="user-profile-mini" style="padding: 20px; border-top: 1px solid #e2e8f0; margin-top: auto;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="avatar-small" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+            <span class="user-initial">U</span>
+        </div>
+        <div style="flex: 1; overflow: hidden;">
+            <div class="user-name" style="font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">User</div>
+            <small class="shop-name" style="color: #718096;">Shop Name</small>
+        </div>
+        <button onclick="goPage('profile')" style="background: none; border: none; cursor: pointer; color: #718096;">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item" onclick="goPage('index')">
+        <span>🏠</span>
+        <p>Home</p>
+    </div>
+    <div class="nav-item" onclick="goPage('stocks')">
+        <span>📦</span>
+        <p>Stock</p>
+    </div>
+    <div class="nav-center" onclick="goPage('sale')">+</div>
+    <div class="nav-item" onclick="goPage('customers')">
+        <span>👥</span>
+        <p>Cust</p>
+    </div>
+    <div class="nav-item active" onclick="goPage('settings')">
+        <span>⚙️</span>
+        <p>More</p>
+    </div>
+</div>
+
+<!-- Add to <head> section of all pages -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+<!-- Add before closing </body> -->
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>

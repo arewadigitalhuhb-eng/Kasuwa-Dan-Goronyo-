@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Dan Goronyo Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <span class="mobile-toggle" onclick="toggleSidebar()">☰</span>
+        <div class="logo">Settings</div>
+    </div>
+</header>
+
+<div class="sidebar" id="sidebar">
+    <div class="logo">
+        <h2>KasuApp Pro</h2>
+    </div>
+    <ul class="menu">
+        <li onclick="goPage('index')">🏠 Home</li>
+        <li onclick="goPage('sale')">🛒 Sale</li>
+        <li onclick="goPage('stocks')">📦 Stocks</li>
+        <li onclick="goPage('settings')" class="active">⚙️ Settings</li>
+    </ul>
+    <button onclick="logoutUser()" class="logout-btn">Logout</button>
+</div>
+
+<div class="main-content" id="main-content">
+    <div class="settings-container">
+        <div class="settings-section">
+            <h2>Store Information</h2>
+            <form id="storeSettingsForm" onsubmit="saveStoreSettings(event)">
+                <div class="form-group">
+                    <label>Shop Name</label>
+                    <input type="text" id="shopName" value="Dan Goronyo Shop">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea id="shopAddress" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="shopPhone">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="shopEmail">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Receipt Footer Message</label>
+                    <input type="text" id="receiptMessage" value="Thank you for your patronage!">
+                </div>
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </form>
+        </div>
+
+        <div class="settings-section">
+            <h2>Preferences</h2>
+            <div class="setting-item">
+                <label>Currency</label>
+                <select id="currency">
+                    <option value="NGN" selected>₦ (Naira)</option>
+                    <option value="USD">$ (Dollar)</option>
+                    <option value="EUR">€ (Euro)</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label>Low Stock Alert Threshold</label>
+                <input type="number" id="lowStockThreshold" value="5" min="1">
+            </div>
+            <div class="setting-item toggle">
+                <label>Enable Sound Notifications</label>
+                <input type="checkbox" id="soundEnabled" checked>
+            </div>
+            <div class="setting-item toggle">
+                <label>Dark Mode</label>
+                <input type="checkbox" id="darkMode" onchange="toggleDarkMode()">
+            </div>
+        </div>
+
+        <div class="settings-section danger-zone">
+            <h2>Data Management</h2>
+            <button onclick="backupData()" class="btn-secondary">📥 Backup Data</button>
+            <button onclick="restoreData()" class="btn-secondary">📤 Restore Data</button>
+            <button onclick="clearAllData()" class="btn-danger">🗑️ Clear All Data</button>
+        </div>
+
+        <div class="settings-section">
+            <h2>Account</h2>
+            <button onclick="goPage('profile')" class="btn-primary">Edit Profile</button>
+            <button onclick="goPage('upgrade')" class="btn-secondary">Manage Subscription</button>
+        </div>
+    </div>
+</div>
+    
+<div class="bottom-nav">
+    <div class="nav-item" onclick="goPage('index')">
+        <span>🏠</span>
+        <p>Home</p>
+    </div>
+    <div class="nav-item" onclick="goPage('stocks')">
+        <span>📦</span>
+        <p>Stock</p>
+    </div>
+    <div class="nav-center" onclick="goPage('sale')">+</div>
+    <div class="nav-item" onclick="goPage('customers')">
+        <span>👥</span>
+        <p>Cust</p>
+    </div>
+    <div class="nav-item active" onclick="goPage('settings')">
+        <span>⚙️</span>
+        <p>Settings</p>
+    </div>
+</div>
+
+<!-- Add to <head> section of all pages -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+<!-- Add before closing </body> -->
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>

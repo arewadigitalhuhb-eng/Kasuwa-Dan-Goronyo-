@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Management - Dan Goronyo Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <span class="mobile-toggle" onclick="toggleSidebar()">☰</span>
+        <div class="logo">Stock Management</div>
+    </div>
+    <div class="header-right">
+        <button onclick="openAddProductModal()" class="btn-primary">+ Add Product</button>
+    </div>
+</header>
+
+<div class="sidebar" id="sidebar">
+    <div class="logo">
+        <h2>KasuApp Pro</h2>
+    </div>
+    <ul class="menu">
+        <li onclick="goPage('index')">🏠 Home</li>
+        <li onclick="goPage('sale')">🛒 Sale</li>
+        <li onclick="goPage('stocks')" class="active">📦 Stocks</li>
+        <li onclick="goPage('customers')">👥 Customers</li>
+        <li onclick="goPage('categories')">📂 Categories</li>
+        <li onclick="goPage('history')">📊 History</li>
+        <li onclick="goPage('settings')">⚙️ Settings</li>
+    </ul>
+    <button onclick="logoutUser()" class="logout-btn">Logout</button>
+</div>
+
+<div class="main-content" id="main-content">
+    <div class="stock-header">
+        <div class="search-box">
+            <input type="text" id="stockSearch" placeholder="Search products..." onkeyup="searchStock()">
+        </div>
+        <div class="stock-filters">
+            <select id="stockFilter" onchange="filterStock()">
+                <option value="all">All Products</option>
+                <option value="low">Low Stock</option>
+                <option value="out">Out of Stock</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="stock-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+        <div class="stat-card">
+            <h4>Total Products</h4>
+            <p id="totalStockCount">0</p>
+        </div>
+        <div class="stat-card warning">
+            <h4>Low Stock Items</h4>
+            <p id="lowStockCount">0</p>
+        </div>
+        <div class="stat-card danger">
+            <h4>Out of Stock</h4>
+            <p id="outOfStockCount">0</p>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table id="stockTable" class="data-table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Cost Price</th>
+                    <th>Selling Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="stockTableBody">
+                <!-- Stock items loaded here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Product Modal -->
+<div id="addProductModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('addProductModal')">&times;</span>
+        <h2>Add New Product</h2>
+        <form id="addProductForm" onsubmit="saveProduct(event)">
+            <div class="form-group">
+                <label>Product Name *</label>
+                <input type="text" id="prodName" required>
+            </div>
+            <div class="form-group">
+                <label>Category *</label>
+                <select id="prodCategory" required>
+                    <option value="">Select Category</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Cost Price (₦) *</label>
+                    <input type="number" id="prodCost" required min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Selling Price (₦) *</label>
+                    <input type="number" id="prodPrice" required min="0" step="0.01">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Quantity *</label>
+                    <input type="number" id="prodQty" required min="0">
+                </div>
+                <div class="form-group">
+                    <label>Low Stock Alert Level</label>
+                    <input type="number" id="prodAlert" value="5" min="1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Barcode (Optional)</label>
+                <input type="text" id="prodBarcode">
+            </div>
+            <button type="submit" class="btn-primary">Save Product</button>
+        </form>
+    </div>
+</div>
+
+    <div class="user-profile-mini" style="padding: 20px; border-top: 1px solid #e2e8f0; margin-top: auto;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="avatar-small" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+            <span class="user-initial">U</span>
+        </div>
+        <div style="flex: 1; overflow: hidden;">
+            <div class="user-name" style="font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">User</div>
+            <small class="shop-name" style="color: #718096;">Shop Name</small>
+        </div>
+        <button onclick="goPage('profile')" style="background: none; border: none; cursor: pointer; color: #718096;">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item" onclick="goPage('index')">
+        <span>🏠</span>
+        <p>Home</p>
+    </div>
+    <div class="nav-item active" onclick="goPage('stocks')">
+        <span>📦</span>
+        <p>Stock</p>
+    </div>
+    <div class="nav-center" onclick="goPage('sale')">+</div>
+    <div class="nav-item" onclick="goPage('customers')">
+        <span>👥</span>
+        <p>Cust</p>
+    </div>
+    <div class="nav-item" onclick="goPage('settings')">
+        <span>⚙️</span>
+        <p>More</p>
+    </div>
+</div>
+
+<!-- Add to <head> section of all pages -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+<!-- Add before closing </body> -->
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>

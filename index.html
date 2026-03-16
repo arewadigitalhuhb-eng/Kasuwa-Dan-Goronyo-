@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dan Goronyo Shop Dashboard - Pro Version</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="display-banner">
+    🎉 You are using <b>Kasuwa Dan Goronyo Pro Edition</b>
+    <button onclick="goPage('upgrade')">Manage Account</button>
+</div>
+
+<header class="header">
+    <div class="header-left">
+        <span class="mobile-toggle" onclick="toggleSidebar()">☰</span>
+        <div class="logo" id="mainLogo">KasuApp</div>
+    </div>
+    
+    <!-- Add to header in all pages -->
+<div class="header-right">
+    <div id="syncStatus" class="sync-status synced" onclick="forceSync()">
+        <i class="fas fa-check-circle"></i> Synced
+    </div>
+    <span id="currentDate"></span>
+</div>
+
+</header>
+
+<div class="sidebar" id="sidebar">
+    <div class="logo">
+        <h2 id="sidebarLogo">KasuApp Pro Editon</h2>
+        <small>Pro Plan Active</small>
+    </div>
+    <div class="usage">
+        <p>Products: <b id="usageProducts">0/100</b></p>
+        <p>Sales Today: <b id="usageSales">0</b></p>
+    </div>
+    <ul class="menu">
+        <li onclick="goPage('index')" class="active">🏠 Home</li>
+        <li onclick="goPage('stocks')">📦 Stock</li>
+        <li onclick="goPage('sale')">🛒 New Sale</li>
+        <li onclick="goPage('history')">📊 History</li>
+        <li onclick="gopage('profile')">👤 profile</li> 
+        <li onclick="goPage('customers')">👥 Customers</li>
+        <li onclick="goPage('reports')">📈 Reports</li>
+        <li onclick="goPage('categories')">📂 Categories</li>
+        <li onclick="goPage('upgrade')">⚙️ Settings</li>
+    </ul>
+    <button onclick="logoutUser()">Logout</button>
+</div>
+
+<div class="main-content" id="main-content">
+
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <button class="new-sale" onclick="goPage('sale')" style="flex: 1;">+ New Sale</button>
+        <button class="new-sale" onclick="goPage('stocks')" style="flex: 1; background: #6a11cb;">+ Add Stock</button>
+    </div>
+
+    <div class="cards">
+        <div class="card purple">
+            <div class="icon">📦</div>
+            <p class="label">Total Items</p>
+            <p class="value" id="totalProducts">0</p>
+        </div>
+
+        <div class="card green">
+            <div class="icon">💵</div>
+            <p class="label">Today's Sales</p>
+            <p class="value" id="todaySales">₦0.00</p>
+        </div>
+
+        <div class="card pink">
+            <div class="icon">📈</div>
+            <p class="label">Total Profit</p>
+            <p class="value" id="totalProfit">₦0.00</p>
+        </div>
+
+        <div class="card orange">
+            <div class="icon">🏠</div>
+            <p class="label">Store Value</p>
+            <p class="value" id="inventoryValue">₦0.00</p>
+        </div>
+    </div>
+    
+   <div id="lowStockAlert" style="margin-top: 10px;"></div>
+    
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="goPage('index')">
+        <span>🏠</span>
+        <p>Home</p>
+    </div>
+    <div class="nav-item" onclick="goPage('stocks')">
+        <span>📦</span>
+        <p>Stock</p>
+    </div>
+    <div class="nav-center" onclick="goPage('sale')">+</div>
+    <div class="nav-item" onclick="goPage('customers')">
+        <span>👥</span>
+        <p>Cust</p>
+    </div>
+    <div class="nav-item" onclick="goPage('upgrade')">
+        <span>⚙️</span>
+        <p>Settings</p>
+    </div>
+</div>
+  
+    <!-- Add to <head> section of all pages -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+<!-- Add before closing </body> -->
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Sale - Dan Goronyo Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <span class="mobile-toggle" onclick="toggleSidebar()">☰</span>
+        <div class="logo">New Sale</div>
+    </div>
+</header>
+
+<div class="sidebar" id="sidebar">
+    <div class="logo">
+        <h2>KasuApp Pro</h2>
+        <small>Pro Plan Active</small>
+    </div>
+    <ul class="menu">
+        <li onclick="goPage('index')">🏠 Home</li>
+        <li onclick="goPage('sale')" class="active">🛒 Sale</li>
+        <li onclick="goPage('stocks')">📦 Stocks</li>
+        <li onclick="goPage('customers')">👥 Customers</li>
+        <li onclick="goPage('history')">📊 History</li>
+        <li onclick="goPage('settings')">⚙️ Settings</li>
+    </ul>
+    <button onclick="logoutUser()" class="logout-btn">Logout</button>
+</div>
+
+<div class="main-content" id="main-content">
+    <div class="sale-container">
+        <div class="cart-section">
+            <h2>Current Sale</h2>
+            <div id="cartItems" class="cart-items">
+                <p class="empty-state">No items added yet</p>
+            </div>
+            
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₦0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Discount:</span>
+                    <input type="number" id="discountInput" placeholder="0" onchange="calculateTotal()">
+                </div>
+                <div class="summary-row total">
+                    <span><strong>Total:</strong></span>
+                    <span id="totalAmount"><strong>₦0.00</strong></span>
+                </div>
+            </div>
+
+            <div class="payment-section">
+                <h3>Payment Method</h3>
+                <div class="payment-options">
+                    <label><input type="radio" name="payment" value="cash" checked> Cash</label>
+                    <label><input type="radio" name="payment" value="transfer"> Transfer</label>
+                    <label><input type="radio" name="payment" value="credit"> Credit</label>
+                </div>
+                
+                <div class="customer-select">
+                    <label>Select Customer (Optional):</label>
+                    <select id="customerSelect">
+                        <option value="">Walk-in Customer</option>
+                    </select>
+                    <button onclick="goPage('customers')" class="btn-small">+ New Customer</button>
+                </div>
+            </div>
+
+            <button class="checkout-btn" onclick="processSale()">Complete Sale</button>
+        </div>
+
+        <div class="products-section">
+            <h2>Products</h2>
+            <input type="text" id="productSearch" placeholder="Search products..." onkeyup="searchProducts()">
+            
+            <div class="category-filter">
+                <button class="filter-btn active" onclick="filterCategory('all')">All</button>
+                <div id="categoryButtons"></div>
+            </div>
+
+            <div id="productsGrid" class="products-grid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="user-profile-mini" style="padding: 20px; border-top: 1px solid #e2e8f0; margin-top: auto;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="avatar-small" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+            <span class="user-initial">U</span>
+        </div>
+        <div style="flex: 1; overflow: hidden;">
+            <div class="user-name" style="font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">User</div>
+            <small class="shop-name" style="color: #718096;">Shop Name</small>
+        </div>
+        <button onclick="goPage('profile')" style="background: none; border: none; cursor: pointer; color: #718096;">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item" onclick="goPage('index')">
+        <span>🏠</span>
+        <p>Home</p>
+    </div>
+    <div class="nav-item" onclick="goPage('stocks')">
+        <span>📦</span>
+        <p>Stock</p>
+    </div>
+    <div class="nav-center active" onclick="goPage('sale')">+</div>
+    <div class="nav-item" onclick="goPage('customers')">
+        <span>👥</span>
+        <p>Cust</p>
+    </div>
+    <div class="nav-item" onclick="goPage('settings')">
+        <span>⚙️</span>
+        <p>More</p>
+    </div>
+</div>
+
+<!-- Add to <head> section of all pages -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+<!-- Add before closing </body> -->
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
