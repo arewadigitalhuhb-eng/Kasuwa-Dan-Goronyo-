@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Kasuwa Dan Goronyo</title>
+    <link rel="stylesheet" href="auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-container">
+    <div class="auth-left">
+        <div class="brand-section">
+            <div class="logo-icon">🛒</div>
+            <h1>Kasuwa Dan Goronyo</h1>
+            <p>Your complete shop management solution</p>
+        </div>
+        
+        <div class="features-list">
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Easy inventory tracking</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Sales analytics & reports</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Customer management</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Multi-device sync</span>
+            </div>
+        </div>
+        
+        <div class="testimonial">
+            <p>"This app transformed how I manage my shop. Highly recommended!"</p>
+            <small>- Alhaji Musa, Kano</small>
+        </div>
+    </div>
+    
+    <div class="auth-right">
+        <div class="auth-form-container">
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Start your 14-day free trial</p>
+            </div>
+            
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> First Name</label>
+                        <input type="text" id="firstName" required placeholder="Enter first name">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Last Name</label>
+                        <input type="text" id="lastName" required placeholder="Enter last name">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-store"></i> Shop Name</label>
+                    <input type="text" id="shopName" required placeholder="Your shop name">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" id="email" required placeholder="example@email.com">
+                    <small class="hint">We'll send verification email to this address</small>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="08012345678">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <div class="password-input">
+                        <input type="password" id="password" required placeholder="Min. 8 characters" minlength="8">
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                    </div>
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-bar"></div>
+                        <span class="strength-text">Password strength</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Confirm Password</label>
+                    <div class="password-input">
+                        <input type="password" id="confirmPassword" required placeholder="Repeat password">
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword')"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span class="checkmark"></span>
+                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                    </label>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="newsletter">
+                        <span class="checkmark"></span>
+                        Send me tips and updates via email
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-auth btn-primary-auth" id="signupBtn">
+                    <span>Create Account</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            
+            <div class="social-signup">
+                <p>Or sign up with</p>
+                <div class="social-buttons">
+                    <button onclick="socialSignup('google')" class="btn-social google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button onclick="socialSignup('facebook')" class="btn-social facebook">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </button>
+                </div>
+            </div>
+            
+            <div class="auth-footer">
+                <p>Already have an account? <a href="login.html">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner-auth"></div>
+    <p>Creating your account...</p>
+</div>
+
+<script src="auth.js"></script>
+</body>
+</html>

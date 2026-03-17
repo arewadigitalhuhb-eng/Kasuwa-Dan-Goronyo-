@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dan Goronyo Shop - Sales History</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Promotion Banner -->
+    <div class="display-banner">
+        🎉 You are using <b>Kasuwa Dan Goronyo Pro Edition</b>
+        <button onclick="goPage('upgrade')">Manage Account</button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
+            <div class="logo" id="mainLogo">KasuApp</div>
+        </div>
+        <div class="header-right">
+            <div id="syncStatus" class="sync-status synced" onclick="forceSync()">
+                <i class="fas fa-check-circle"></i> Synced
+            </div>
+            <span id="currentDate"></span>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <h2 id="sidebarLogo">KasuApp Pro Edition</h2>
+            <small>Pro Plan Active</small>
+        </div>
+        <div class="usage">
+            <p>Products: <b id="usageProducts">0/100</b></p>
+            <p>Sales Today: <b id="usageSales">0</b></p>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li onclick="goPage('index')">🏠 Home</li>
+                <li onclick="goPage('stocks')">📦 Stock</li>
+                <li onclick="goPage('sale')">🛒 New Sale</li>
+                <li onclick="goPage('history')" class="active">📊 History</li>
+                <li onclick="gopage('profile')">👤 Profile</li>
+                <li onclick="goPage('customers')">👥 Customers</li>
+                <li onclick="goPage('reports')">📈 Reports</li>
+                <li onclick="goPage('categories')">📂 Categories</li>
+                <li onclick="goPage('upgrade')">⚙️ Settings</li>
+            </ul>
+        </nav>
+        <button class="logout-btn" onclick="logoutUser()">Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <div class="page-header">
+            <h1>📊 Sales History</h1>
+            <p>View all recorded transactions</p>
+        </div>
+
+        <!-- Date Filter (optional) -->
+        <div class="filter-bar">
+            <label for="dateFilter">Filter by date:</label>
+            <input type="date" id="dateFilter">
+            <button class="btn-secondary" onclick="filterHistory()">Apply</button>
+            <button class="btn-secondary" onclick="resetFilter()">Reset</button>
+        </div>
+
+        <!-- Sales Table -->
+        <div class="history-table-card">
+            <div class="table-responsive">
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Price (₦)</th>
+                            <th>Total (₦)</th>
+                            <th>Payment</th>
+                            <th>Customer</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- Populated dynamically from Firebase -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="historyMessage" class="message"></div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item" onclick="goPage('index')">
+            <span>🏠</span>
+            <p>Home</p>
+        </div>
+        <div class="nav-item" onclick="goPage('stocks')">
+            <span>📦</span>
+            <p>Stock</p>
+        </div>
+        <div class="nav-center" onclick="goPage('sale')">+</div>
+        <div class="nav-item" onclick="goPage('customers')">
+            <span>👥</span>
+            <p>Cust</p>
+        </div>
+        <div class="nav-item active" onclick="goPage('upgrade')">
+            <span>⚙️</span>
+            <p>Settings</p>
+        </div>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="auth.js"></script>
+    <!-- Page-specific script -->
+    <script src="history.js"></script>
+    <!-- Common functions inline fallback -->
+    <script>
+        function goPage(page) { window.location.href = page + '.html'; }
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+        function logoutUser() { firebase.auth().signOut().then(() => { window.location.href = 'login.html'; }); }
+        function forceSync() {
+            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Syncing...';
+            setTimeout(() => { document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Synced'; }, 1500);
+        }
+        function filterHistory() {
+            // To be implemented in history.js
+            console.log('Filter by date:', document.getElementById('dateFilter').value);
+        }
+        function resetFilter() {
+            document.getElementById('dateFilter').value = '';
+            filterHistory();
+        }
+    </script>
+</body>
+</html>
