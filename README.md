@@ -33,7 +33,4 @@ Would you like me to:
 View the repository's file structure to understand the project better?
 Create/update the README.md with more comprehensive documentation?
 Check what files are currently in the repository?
-Let me know how I can help!
-
-Ask anything
 
